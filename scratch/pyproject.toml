@@ -1,0 +1,14 @@
+[project]
+name = "trainer-log-key-prefix-repro"
+version = "0.1.0"
+description = "Minimal reproduction for Lightning PR #21784"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "lightning",
+    "wandb",
+]
+
+[tool.uv.sources]
+# Resolve ``lightning`` from the sibling upstream checkout, not PyPI.
+lightning = { path = "../lightning", editable = true }
