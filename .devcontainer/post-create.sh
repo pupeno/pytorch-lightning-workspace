@@ -3,7 +3,7 @@
 # Fail fast, fail early, fail loud.
 set -euo pipefail
 
-workspace_dir="${containerWorkspaceFolder:-/workspaces/lightning}"
+workspace_dir="$PWD"
 
 echo "==> Upgrading packages"
 sudo apt-get update

@@ -4,13 +4,7 @@ This is a repo that contains some things that I find useful when contributing to
 
 ## Setup
 
-Clone this repository, then clone Lightning into `lightning`:
-
-```sh
-git clone https://github.com/Lightning-AI/pytorch-lightning.git lightning
-```
-
-Then simply start the devcontainer using [Zed](https://zed.dev), [VS Code](https://code.visualstudio.com/), or the [Dev Container CLI](https://containers.dev/guide/cli).
+Clone this repository, then simply start the devcontainer using [Zed](https://zed.dev), [VS Code](https://code.visualstudio.com/), or the [Dev Container CLI](https://containers.dev/guide/cli).
 
 It will clone PyTorch Lightning into `lightning`, set it up, everything!
 
