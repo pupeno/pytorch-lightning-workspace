@@ -30,12 +30,17 @@ if [ ! -d "$workspace_dir/lightning" ]; then
     git clone https://github.com/pupeno/pytorch-lightning.git "$workspace_dir/lightning"
 fi
 
+echo "==> Installing Python 3.12"
+# Pre-commit's docformatter hook also needs a plain `python3.12` on PATH
+# (see the language_version pin in lightning/.pre-commit-config.yaml).
+uv python install 3.12
+
 echo "==> Setting up Lightning's Python and venv"
 cd "$workspace_dir/lightning"
-uv venv --allow-existing --python 3.11
+uv venv --allow-existing --python 3.12
 source .venv/bin/activate
 make setup
 
 echo "==> Installing scratch's Python dependencies"
 cd "$workspace_dir/scratch"
-uv sync --python 3.11
+uv sync --python 3.12
