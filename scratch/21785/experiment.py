@@ -33,12 +33,16 @@ class Model(LightningModule):
         return torch.optim.SGD(self.parameters(), lr=0.1)
 
 
-# Prefix applied to Trainer-generated metric keys (default: "trainer/"; requires PR #21784).
-LOG_KEY_PREFIX = "trainer/"
+# Prefix applied to WandbLogger's own "global_step" key (default: None, i.e. no prefix;
+# requires PR #21785). Previously hardcoded to "trainer/global_step".
+LOG_KEY_PREFIX = None
 
 
 def main() -> None:
-    logger = PrintingWandbLogger(project="lightning-log-key-prefix-repro")
+    logger = PrintingWandbLogger(
+        project="lightning-log-key-prefix-repro",
+        log_key_prefix=LOG_KEY_PREFIX,  # <-- exercises PR #21785
+    )
     trainer = Trainer(
         accelerator="cpu",
         devices=1,
@@ -50,7 +54,6 @@ def main() -> None:
         enable_model_summary=False,
         enable_progress_bar=False,
         log_every_n_steps=1,
-        log_key_prefix=LOG_KEY_PREFIX,  # <-- exercises PR #21784
     )
     x = torch.tensor([[1.0]])
     y = torch.tensor([[2.0]])
