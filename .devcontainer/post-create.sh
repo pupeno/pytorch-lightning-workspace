@@ -16,6 +16,10 @@ echo "==> Installing Starship"
 sudo apt-get install starship --yes
 grep -qxF 'eval "$(starship init bash)"' "$HOME/.bashrc" || echo 'eval "$(starship init bash)"' >> "$HOME/.bashrc"
 grep -qxF 'eval "$(starship init zsh)"' "$HOME/.zshrc" || echo 'eval "$(starship init zsh)"' >> "$HOME/.zshrc"
+mkdir -p "$HOME/.config"
+if [ ! -f "$HOME/.config/starship.toml" ]; then
+    cp "$workspace_dir/.devcontainer/starship.toml" "$HOME/.config/starship.toml"
+fi
 
 echo "==> Installing Codex and Claude Code"
 npm config set allow-scripts=@anthropic-ai/claude-code --location=user
