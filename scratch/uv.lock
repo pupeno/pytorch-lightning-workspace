@@ -2634,6 +2634,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "comet-ml" },
     { name = "lightning" },
+    { name = "rich" },
     { name = "wandb" },
 ]
 
@@ -2641,6 +2642,7 @@ dependencies = [
 requires-dist = [
     { name = "comet-ml" },
     { name = "lightning", editable = "../lightning" },
+    { name = "rich" },
     { name = "wandb" },
 ]
 
