@@ -12,6 +12,7 @@ It will clone PyTorch Lightning into `lightning`, set it up, everything!
 
 - [#21782 - Metric-key prefix controls](https://github.com/Lightning-AI/pytorch-lightning/issues/21782): feature proposal to independently namespace generated keys from Trainer, W&B, and Comet without renaming user-provided metrics.
 - [#21787 - W&B crashes appear as successful sweep runs](https://github.com/Lightning-AI/pytorch-lightning/issues/21787): `WandbLogger.finalize("failed")` did not finish the run with a failing exit code, so a `sys.exit(0)` crash could appear as **Finished** in Weights & Biases.
+- [#21925 - `RichProgressBar` shows a negative epoch total (e.g. `Epoch 5/-2`) when `max_epochs=-1`](https://github.com/Lightning-AI/pytorch-lightning/issues/21925): `max_epochs=-1` (unlimited epochs) was treated as a real epoch count, so stopping via another condition (e.g. `max_steps`) showed a nonsensical negative total instead of just the current epoch.
 
 ## Pull requests
 
@@ -21,3 +22,4 @@ It will clone PyTorch Lightning into `lightning`, set it up, everything!
 - [#21786 - feat: add epoch_key to CometLogger to make epoch extraction configurable](https://github.com/Lightning-AI/pytorch-lightning/pull/21786): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
 - [#21788 - fix: mark W&B run as failed when `WandbLogger.finalize("failed")` is called](https://github.com/Lightning-AI/pytorch-lightning/pull/21788): fixes [#21787](https://github.com/Lightning-AI/pytorch-lightning/issues/21787).
 - [#21789 - Update PR template to use checkboxes on all items](https://github.com/Lightning-AI/pytorch-lightning/pull/21789): standalone change.
+- [#21924 - Avoid negative epoch totals for unlimited training](https://github.com/Lightning-AI/pytorch-lightning/pull/21924): fixes [#21925](https://github.com/Lightning-AI/pytorch-lightning/issues/21925).
