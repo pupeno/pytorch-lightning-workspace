@@ -29,10 +29,15 @@ echo "==> Installing uv"
 command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-echo "==> Cloning pytorch-lightning"
-if [ ! -d "$workspace_dir/lightning" ]; then
-    git clone https://github.com/pupeno/pytorch-lightning.git "$workspace_dir/lightning"
+echo "==> Initializing the Lightning submodule"
+if [ ! -e "$workspace_dir/lightning/.git" ]; then
+    git -C "$workspace_dir" submodule sync -- lightning
+    git -C "$workspace_dir" submodule update --init lightning
 fi
+
+echo "==> Fetching Lightning's git submodules"
+git -C "$workspace_dir/lightning" submodule sync --recursive
+git -C "$workspace_dir/lightning" submodule update --init --recursive
 
 echo "==> Installing Python 3.12"
 # Pre-commit's docformatter hook also needs a plain `python3.12` on PATH

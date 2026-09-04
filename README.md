@@ -1,12 +1,8 @@
-# Pablo's Pytorch Lightning Contributing Workspaces
+# Pablo's PyTorch Lightning Contributing Workspace
 
-This is a repo that contains some things that I find useful when contributing to [PyTorch Lightning](https://github.com/Lightning-AI/pytorch-lightning). It contains the devcontainer configuration and scratch experiments.
+This repository is Pablo's development workspace for contributing to [PyTorch Lightning](https://github.com/Lightning-AI/pytorch-lightning).
 
-## Setup
-
-Clone this repository, then simply start the devcontainer using [Zed](https://zed.dev), [VS Code](https://code.visualstudio.com/), or the [Dev Container CLI](https://containers.dev/guide/cli).
-
-It will clone PyTorch Lightning into `lightning`, set it up, everything!
+It keeps the devcontainer configuration and scratch experiments together, while the `lightning/` directory contains the PyTorch Lightning source code itself.
 
 ## Tickets
 
@@ -26,6 +22,39 @@ It will clone PyTorch Lightning into `lightning`, set it up, everything!
 - [#21788 - fix: mark W&B run as failed when `WandbLogger.finalize("failed")` is called](https://github.com/Lightning-AI/pytorch-lightning/pull/21788): fixes [#21787](https://github.com/Lightning-AI/pytorch-lightning/issues/21787).
 - [#21789 - Update PR template to use checkboxes on all items](https://github.com/Lightning-AI/pytorch-lightning/pull/21789): standalone change.
 
-## Merged Pull Requests
+## Merged pull requests
 
 - [#21924 - Avoid negative epoch totals for unlimited training](https://github.com/Lightning-AI/pytorch-lightning/pull/21924): fixes [#21925](https://github.com/Lightning-AI/pytorch-lightning/issues/21925).
+
+## Setup
+
+Clone this repository into a directory named `lightning`:
+
+```bash
+git clone https://github.com/pupeno/pytorch-lightning-workspace.git lightning
+```
+
+Open it in [Zed](https://zed.dev), then reopen it in its devcontainer.
+
+## Common Commands
+
+Pull PyTorch Lightning and update its nested submodules at the same time:
+
+```bash
+cd /workspaces/lightning/lightning
+git pull --recurse-submodules
+```
+
+Update submodules after `git pull` (without `--recurse-submodules`):
+
+```bash
+cd /workspaces/lightning/lightning
+git submodule update --init --recursive
+```
+
+Run all tests:
+
+```bash
+cd /workspaces/lightning/lightning
+make test
+```

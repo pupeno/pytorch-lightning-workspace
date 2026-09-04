@@ -1,0 +1,4 @@
+[submodule "lightning"]
+	path = lightning
+	url = https://github.com/pupeno/pytorch-lightning.git
+	ignore = all
