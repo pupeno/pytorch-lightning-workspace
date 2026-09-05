@@ -16,10 +16,10 @@ It keeps the devcontainer configuration and scratch experiments together, while 
 ## Pull requests
 
 - [#21783 - feat: Log key prefix controls for Trainer, WandbLogger, and CometLogger](https://github.com/Lightning-AI/pytorch-lightning/pull/21783): fixes [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
-- [#21784 - feat: add log_key_prefix to Trainer for Trainer-generated metric keys](https://github.com/Lightning-AI/pytorch-lightning/pull/21784): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
-- [#21785 - feat: add log_key_prefix to WandbLogger; default global_step key drops trainer/ prefix](https://github.com/Lightning-AI/pytorch-lightning/pull/21785): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
-- [#21786 - feat: add epoch_key to CometLogger to make epoch extraction configurable](https://github.com/Lightning-AI/pytorch-lightning/pull/21786): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
-- [#21788 - fix: mark W&B run as failed when `WandbLogger.finalize("failed")` is called](https://github.com/Lightning-AI/pytorch-lightning/pull/21788): fixes [#21787](https://github.com/Lightning-AI/pytorch-lightning/issues/21787).
+- [#21784 - Add log_key_prefix to Trainer to control the prefix for metrics like epoch](https://github.com/Lightning-AI/pytorch-lightning/pull/21784): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
+- [#21785 - Add log_key_prefix to WandbLogger to control the prefix for global_step](https://github.com/Lightning-AI/pytorch-lightning/pull/21785): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
+- [#21786 - Add epoch_key to CometLogger to make epoch extraction configurable](https://github.com/Lightning-AI/pytorch-lightning/pull/21786): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
+- [#21788 - Mark W&B run as failed when `WandbLogger.finalize("failed")` is called](https://github.com/Lightning-AI/pytorch-lightning/pull/21788): fixes [#21787](https://github.com/Lightning-AI/pytorch-lightning/issues/21787).
 - [#21789 - Update PR template to use checkboxes on all items](https://github.com/Lightning-AI/pytorch-lightning/pull/21789): standalone change.
 
 ## Merged pull requests
