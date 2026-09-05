@@ -20,7 +20,7 @@ class PrintingExperiment:
         epoch: int | None,
         **kwargs: Any,
     ) -> None:
-        print("Metrics sent to Comet:")
+        print(f"Metrics sent to Comet at step {step}:")
         for key, value in metrics.items():
             print(f"  {key}: {value}")
         print(f"Dedicated epoch argument: {epoch}")
@@ -32,15 +32,15 @@ class PrintingExperiment:
 
 def main() -> None:
     logger = CometLogger(
-        project="lightning-pr-21786",
+        project="lightning-21786-comet-epoch-key",
         epoch_key="trainer/epoch",  # <-- exercises PR #21786
     )
     experiment = logger.experiment
     generated_name = experiment.get_name() or experiment.get_key()[:8]
     experiment.set_name(f"{Path(__file__).stem}-{generated_name}")
     logger._experiment = PrintingExperiment(experiment)
-    for step, loss in enumerate((2.0, 1.0, 0.5)):
-        logger.log_metrics({"train/loss": loss, "trainer/epoch": step}, step=step)
+    for step, loss in enumerate((2.0, 1.6, 1.2, 0.9, 0.7, 0.5)):
+        logger.log_metrics({"train/loss": loss, "trainer/epoch": step // 2}, step=step)
     print("Comet run:")
     print(f"  Name: {experiment.get_name()}")
     print(f"  URL: {experiment.url}")
