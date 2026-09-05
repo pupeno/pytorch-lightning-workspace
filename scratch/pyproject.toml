@@ -1,7 +1,6 @@
 [project]
-name = "trainer-log-key-prefix-repro"
+name = "scratch"
 version = "0.1.0"
-description = "Minimal reproduction for Lightning PR #21784"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

@@ -12,6 +12,12 @@
     // Fixes the hostname so shell prompts and logs identify the container.
     "runArgs": ["--hostname", "lightning"],
 
+    // Keep uv's cache on the workspace filesystem so it can hardlink packages
+    // into project virtual environments.
+    "containerEnv": {
+        "UV_CACHE_DIR": "${containerWorkspaceFolder}/.uv-cache"
+    },
+
     "mounts": [
         // One volume for the whole container home so all config survive a rebuild.
         "source=lightning-home,target=/home/vscode,type=volume"
