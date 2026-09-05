@@ -1,13 +1,17 @@
+#!/usr/bin/env python
+
 from __future__ import annotations
 
 import logging
 import warnings
+from pathlib import Path
 from typing import Any
 
 import torch
+import wandb
 from torch.utils.data import DataLoader, TensorDataset
 from lightning.pytorch import LightningModule, Trainer
-from lightning.pytorch.loggers import Logger
+from lightning.pytorch.loggers import WandbLogger
 
 
 # Keep this comparison focused on the metric payload.
@@ -16,24 +20,20 @@ logging.getLogger("lightning.pytorch").setLevel(logging.ERROR)
 warnings.filterwarnings("ignore")
 
 
-class PrintingLogger(Logger):
-    """Print the exact metrics received from Trainer."""
+class PrintingRun:
+    """Print the outgoing payload, then forward it to the real W&B run."""
 
-    @property
-    def name(self) -> str:
-        return "printing"
+    def __init__(self, run: Any) -> None:
+        self._run = run
 
-    @property
-    def version(self) -> str:
-        return "0"
-
-    def log_hyperparams(self, params: dict[str, Any]) -> None:
-        pass
-
-    def log_metrics(self, metrics: dict[str, Any], step: int | None = None) -> None:
-        print(f"Metrics at step {step}:")
+    def log(self, metrics: dict[str, Any]) -> None:
+        print("Metrics sent to W&B:")
         for key, value in metrics.items():
             print(f"  {key}: {value}")
+        self._run.log(metrics)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._run, name)
 
 
 class Model(LightningModule):
@@ -45,38 +45,40 @@ class Model(LightningModule):
         x, y = batch
         loss = torch.nn.functional.mse_loss(self.layer(x), y)
         self.log("train/loss", loss)
-        # This is deliberately user-owned. The requested prefix must not rewrite it.
-        self.log("user/epoch", 7.0)
         return loss
 
     def configure_optimizers(self) -> torch.optim.Optimizer:
         return torch.optim.SGD(self.parameters(), lr=0.1)
 
 
-# Prefix applied to Trainer-generated metric keys (default: None; requires PR #21784).
-LOG_KEY_PREFIX = "trainer/"
-
-
 def main() -> None:
     torch.manual_seed(0)
-    logger = PrintingLogger()
+    logger = WandbLogger(project="lightning-pr-21784", settings=wandb.Settings(silent=True))
+    run = logger.experiment
+    generated_name = run.name or run.id
+    run.name = f"{Path(__file__).stem}-{generated_name}"
+    logger._experiment = PrintingRun(run)
     trainer = Trainer(
         accelerator="cpu",
         devices=1,
         logger=logger,
-        max_epochs=1,
+        max_epochs=3,
         limit_train_batches=1,
         num_sanity_val_steps=0,
         enable_checkpointing=False,
         enable_model_summary=False,
         enable_progress_bar=False,
         log_every_n_steps=1,
-        log_key_prefix=LOG_KEY_PREFIX,  # <-- exercises PR #21784
+        log_key_prefix="trainer/",  # <-- exercises PR #21784
     )
     x = torch.tensor([[1.0]])
     y = torch.tensor([[2.0]])
     train_dataloader = DataLoader(TensorDataset(x, y), batch_size=1)
     trainer.fit(Model(), train_dataloaders=train_dataloader)
+    print("W&B run:")
+    print(f"  Name: {run.name}")
+    print(f"  URL: {run.url}")
+    run.finish()
 
 
 if __name__ == "__main__":
