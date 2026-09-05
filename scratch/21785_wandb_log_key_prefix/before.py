@@ -25,7 +25,7 @@ class PrintingRun:
 
 def main() -> None:
     logger = WandbLogger(
-        project="lightning-21785-wandb-log-key-prefix",
+        project="lightning-pr-21785-wandb-log-key-prefix",
         settings=wandb.Settings(silent=True),
         # log_key_prefix="train/",  # Impossible without PR #21785
     )

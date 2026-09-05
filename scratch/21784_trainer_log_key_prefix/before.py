@@ -53,7 +53,7 @@ class Model(LightningModule):
 
 def main() -> None:
     torch.manual_seed(0)
-    logger = WandbLogger(project="lightning-pr-21784", settings=wandb.Settings(silent=True))
+    logger = WandbLogger(project="lightning-pr-21784-trainer-log-key-prefix", settings=wandb.Settings(silent=True))
     run = logger.experiment
     generated_name = run.name or run.id
     run.name = f"{Path(__file__).stem}-{generated_name}"

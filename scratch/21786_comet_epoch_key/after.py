@@ -32,7 +32,7 @@ class PrintingExperiment:
 
 def main() -> None:
     logger = CometLogger(
-        project="lightning-21786-comet-epoch-key",
+        project="lightning-pr-21786-comet-epoch-key",
         epoch_key="trainer/epoch",  # <-- exercises PR #21786
     )
     experiment = logger.experiment
