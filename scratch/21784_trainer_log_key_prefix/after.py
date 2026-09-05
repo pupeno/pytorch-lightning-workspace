@@ -1,19 +1,39 @@
 from __future__ import annotations
 
+import logging
+import warnings
 from typing import Any
 
 import torch
 from torch.utils.data import DataLoader, TensorDataset
 from lightning.pytorch import LightningModule, Trainer
-from lightning.pytorch.loggers import WandbLogger
+from lightning.pytorch.loggers import Logger
 
 
-class PrintingWandbLogger(WandbLogger):
-    """Send metrics to W&B and echo the exact payload in the terminal."""
+# Keep this comparison focused on the metric payload.
+logging.getLogger("lightning").setLevel(logging.ERROR)
+logging.getLogger("lightning.pytorch").setLevel(logging.ERROR)
+warnings.filterwarnings("ignore")
+
+
+class PrintingLogger(Logger):
+    """Print the exact metrics received from Trainer."""
+
+    @property
+    def name(self) -> str:
+        return "printing"
+
+    @property
+    def version(self) -> str:
+        return "0"
+
+    def log_hyperparams(self, params: dict[str, Any]) -> None:
+        pass
 
     def log_metrics(self, metrics: dict[str, Any], step: int | None = None) -> None:
-        print(f"W&B payload (step={step}): {metrics}")
-        super().log_metrics(metrics, step)
+        print(f"Metrics at step {step}:")
+        for key, value in metrics.items():
+            print(f"  {key}: {value}")
 
 
 class Model(LightningModule):
@@ -24,7 +44,7 @@ class Model(LightningModule):
     def training_step(self, batch: tuple[torch.Tensor, torch.Tensor], batch_idx: int) -> torch.Tensor:
         x, y = batch
         loss = torch.nn.functional.mse_loss(self.layer(x), y)
-        self.log("loss", loss)
+        self.log("train/loss", loss)
         # This is deliberately user-owned. The requested prefix must not rewrite it.
         self.log("user/epoch", 7.0)
         return loss
@@ -33,12 +53,13 @@ class Model(LightningModule):
         return torch.optim.SGD(self.parameters(), lr=0.1)
 
 
-# Prefix applied to Trainer-generated metric keys (default: "trainer/"; requires PR #21784).
+# Prefix applied to Trainer-generated metric keys (default: None; requires PR #21784).
 LOG_KEY_PREFIX = "trainer/"
 
 
 def main() -> None:
-    logger = PrintingWandbLogger(project="lightning-log-key-prefix-repro")
+    torch.manual_seed(0)
+    logger = PrintingLogger()
     trainer = Trainer(
         accelerator="cpu",
         devices=1,
@@ -56,8 +77,6 @@ def main() -> None:
     y = torch.tensor([[2.0]])
     train_dataloader = DataLoader(TensorDataset(x, y), batch_size=1)
     trainer.fit(Model(), train_dataloaders=train_dataloader)
-
-    print(f"W&B run: {logger.experiment.url}")
 
 
 if __name__ == "__main__":
