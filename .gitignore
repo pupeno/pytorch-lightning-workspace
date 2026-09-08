@@ -2,4 +2,4 @@ __pycache__/
 *.pyc
 .venv/
 .uv-cache/
-scratch/wandb/
+wandb/

@@ -44,6 +44,6 @@ uv venv --allow-existing --python 3.12
 source .venv/bin/activate
 make setup
 
-echo "==> Installing scratch's Python dependencies"
-cd "$workspace_dir/workspace/scratch"
+echo "==> Installing workspace Python dependencies"
+cd "$workspace_dir/workspace"
 uv sync --python 3.12

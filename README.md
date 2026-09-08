@@ -2,7 +2,7 @@
 
 This repository is Pablo's development workspace for contributing to [PyTorch Lightning](https://github.com/Lightning-AI/pytorch-lightning).
 
-It keeps the devcontainer configuration, scratch experiments, and documentation together.
+It keeps the devcontainer configuration, experiments, and documentation together.
 
 ## Tickets
 

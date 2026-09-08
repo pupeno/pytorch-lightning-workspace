@@ -1,5 +1,5 @@
 [project]
-name = "scratch"
+name = "lightning-workspace"
 version = "0.1.0"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -12,4 +12,4 @@ dependencies = [
 
 [tool.uv.sources]
 # Resolve ``lightning`` from the sibling upstream checkout, not PyPI.
-lightning = { path = "../../lightning", editable = true }
+lightning = { path = "../lightning", editable = true }
