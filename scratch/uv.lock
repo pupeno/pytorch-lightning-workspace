@@ -774,7 +774,7 @@ wheels = [
 [[package]]
 name = "lightning"
 version = "2.6.2"
-source = { editable = "../lightning" }
+source = { editable = "../../lightning" }
 dependencies = [
     { name = "fsspec", extra = ["http"] },
     { name = "lightning-utilities" },
@@ -2443,7 +2443,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "comet-ml" },
-    { name = "lightning", editable = "../lightning" },
+    { name = "lightning", editable = "../../lightning" },
     { name = "rich" },
     { name = "wandb" },
 ]

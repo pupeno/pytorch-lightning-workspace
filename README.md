@@ -2,7 +2,7 @@
 
 This repository is Pablo's development workspace for contributing to [PyTorch Lightning](https://github.com/Lightning-AI/pytorch-lightning).
 
-It keeps the devcontainer configuration and scratch experiments together, while the `lightning/` directory contains the PyTorch Lightning source code itself.
+It keeps the devcontainer configuration, scratch experiments, and documentation together.
 
 ## Tickets
 
@@ -28,13 +28,16 @@ It keeps the devcontainer configuration and scratch experiments together, while 
 
 ## Setup
 
-Clone this repository into a directory named `lightning`:
+Clone the workspace and run its setup script:
 
 ```bash
-git clone https://github.com/pupeno/pytorch-lightning-workspace.git lightning
+mkdir lightning
+git clone https://github.com/pupeno/pytorch-lightning-workspace.git lightning/workspace
+lightning/workspace/setup.sh
 ```
 
-Open it in [Zed](https://zed.dev), then reopen it in its devcontainer.
+Open the outer `lightning/` directory in an editor with devcontainer support,
+then reopen it in its devcontainer.
 
 ## Common Commands
 

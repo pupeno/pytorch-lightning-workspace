@@ -29,12 +29,6 @@ echo "==> Installing uv"
 command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-echo "==> Initializing the Lightning submodule"
-if [ ! -e "$workspace_dir/lightning/.git" ]; then
-    git -C "$workspace_dir" submodule sync -- lightning
-    git -C "$workspace_dir" submodule update --init lightning
-fi
-
 echo "==> Fetching Lightning's git submodules"
 git -C "$workspace_dir/lightning" submodule sync --recursive
 git -C "$workspace_dir/lightning" submodule update --init --recursive
@@ -51,5 +45,5 @@ source .venv/bin/activate
 make setup
 
 echo "==> Installing scratch's Python dependencies"
-cd "$workspace_dir/scratch"
+cd "$workspace_dir/workspace/scratch"
 uv sync --python 3.12
