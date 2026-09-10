@@ -13,7 +13,7 @@ It keeps the devcontainer configuration, experiments, and documentation together
 
 - [#21925 - `RichProgressBar` shows a negative epoch total (e.g. `Epoch 5/-2`) when `max_epochs=-1`](https://github.com/Lightning-AI/pytorch-lightning/issues/21925): `max_epochs=-1` (unlimited epochs) was treated as a real epoch count, so stopping via another condition (e.g. `max_steps`) showed a nonsensical negative total instead of just the current epoch.
 
-## Pull requests
+## Open Pull Requests
 
 - [#21783 - feat: Log key prefix controls for Trainer, WandbLogger, and CometLogger](https://github.com/Lightning-AI/pytorch-lightning/pull/21783): fixes [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
 - [#21784 - Add log_key_prefix to Trainer to control the prefix for metrics like epoch](https://github.com/Lightning-AI/pytorch-lightning/pull/21784): contributes to [#21782](https://github.com/Lightning-AI/pytorch-lightning/issues/21782).
@@ -22,7 +22,7 @@ It keeps the devcontainer configuration, experiments, and documentation together
 - [#21788 - Mark W&B run as failed when `WandbLogger.finalize("failed")` is called](https://github.com/Lightning-AI/pytorch-lightning/pull/21788): fixes [#21787](https://github.com/Lightning-AI/pytorch-lightning/issues/21787).
 - [#21789 - Update PR template to use checkboxes on all items](https://github.com/Lightning-AI/pytorch-lightning/pull/21789): standalone change.
 
-## Merged pull requests
+## Actioned Pull Requests
 
 - [#21924 - Avoid negative epoch totals for unlimited training](https://github.com/Lightning-AI/pytorch-lightning/pull/21924): fixes [#21925](https://github.com/Lightning-AI/pytorch-lightning/issues/21925).
 
