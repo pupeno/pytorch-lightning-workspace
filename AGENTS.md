@@ -1,17 +1,12 @@
-# Workspace layout
+# Agents
 
-The project root at `/workspaces/lightning/` is a plain directory containing
-two sibling Git repositories:
+## Workspace layout
 
-- `/workspaces/lightning/lightning/` is the PyTorch Lightning repository. Run
-  source Git commands, inspect diffs, and make source changes there.
-- `/workspaces/lightning/workspace/` owns the devcontainer configuration,
-  notes, and local experiments. Experiments live directly in this repository
-  and do not belong to the PyTorch Lightning repository unless a task
-  explicitly moves the work there.
+The project root at `/workspaces/lightning/` is a plain directory containing two sibling Git repositories:
 
-`setup.sh` links configuration from the workspace repository into the project
-root. The script defines which links are managed.
+- `/workspaces/lightning/lightning/` is the PyTorch Lightning repository. Run source Git commands, inspect diffs, and make source changes there.
+- `/workspaces/lightning/workspace/` owns the devcontainer configuration, notes, and local experiments. Experiments live directly in this repository and do not belong to the PyTorch Lightning repository unless a task explicitly moves the work there.
 
-Keep the two repositories as siblings; do not turn the source checkout into a
-submodule or nest it inside the workspace repository.
+`setup.sh` links configuration from the workspace repository into the project root. The script defines which links are managed.
+
+Keep the two repositories as siblings; do not turn the source checkout into a submodule or nest it inside the workspace repository.
