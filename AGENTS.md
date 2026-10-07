@@ -10,6 +10,8 @@ two sibling Git repositories:
   and do not belong to the PyTorch Lightning repository unless a task
   explicitly moves the work there.
 
-The `.devcontainer` and `AGENTS.md` entries at the project root are symlinks into
-the workspace repository. Keep the two repositories as siblings; do not turn
-the source checkout into a submodule or nest it inside the workspace repository.
+`setup.sh` links configuration from the workspace repository into the project
+root. The script defines which links are managed.
+
+Keep the two repositories as siblings; do not turn the source checkout into a
+submodule or nest it inside the workspace repository.
