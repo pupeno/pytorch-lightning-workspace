@@ -29,14 +29,14 @@ echo "==> Installing uv"
 command -v uv >/dev/null 2>&1 || curl -LsSf https://astral.sh/uv/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 
-echo "==> Fetching Lightning's git submodules"
-git -C "$workspace_dir/lightning" submodule sync --recursive
-git -C "$workspace_dir/lightning" submodule update --init --recursive
-
 echo "==> Installing Python 3.12"
 # Pre-commit's docformatter hook also needs a plain `python3.12` on PATH
 # (see the language_version pin in lightning/.pre-commit-config.yaml).
 uv python install 3.12
+
+echo "==> Fetching Lightning's git submodules"
+git -C "$workspace_dir/lightning" submodule sync --recursive
+git -C "$workspace_dir/lightning" submodule update --init --recursive
 
 echo "==> Setting up Lightning's Python and venv"
 cd "$workspace_dir/lightning"
